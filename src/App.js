@@ -7,14 +7,15 @@ import {
 
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import QuizScreen from './components/QuizScreen/QuizScreen';
+import ResultsScreen from './components/ResultsScreen/ResultsScreen';
 
 export default function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/results">
+            <ResultsScreen />
           </Route>
           <Route path="/quiz">
             <QuizScreen />
@@ -26,8 +27,4 @@ export default function App() {
       </div>
     </Router>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
 }
