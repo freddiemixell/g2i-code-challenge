@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import HomeScreen from './components/HomeScreen/HomeScreen';
+import QuizScreen from './components/QuizScreen/QuizScreen';
 
 export default function App() {
   return (
@@ -15,8 +16,8 @@ export default function App() {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/quiz">
+            <QuizScreen />
           </Route>
           <Route path="/">
             <HomeScreen />
@@ -29,8 +30,4 @@ export default function App() {
 
 function About() {
   return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
