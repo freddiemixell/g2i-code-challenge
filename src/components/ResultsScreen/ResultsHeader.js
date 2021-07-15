@@ -9,6 +9,9 @@ export default function ResultsHeader() {
     useEffect( () => {
         let localCorrect = 0;
         questions.forEach( ( { correct_answer }, index ) => {
+            if ( typeof answers[ index ] === 'undefined' ) {
+                throw new Error( 'Questions and answers length don\'t match.' );
+            }
             let checkAnswer = correct_answer.toLowerCase() === answers[ index ];
             if ( checkAnswer ) {
                 localCorrect++;
