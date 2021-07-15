@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function PlayAgainBtn() {
     return (
         <div className="container">
-            <button className="button button__playagain">
+            <Link
+                className="button button__playagain"
+                to="/"
+            >
                 Play Again?
-            </button>
+            </Link>
         </div>
     );
 }
