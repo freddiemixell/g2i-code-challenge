@@ -48,9 +48,18 @@ export default function QuizProvider( { children } ) {
     /**
      * Reset Quiz
      */
-    let resetQuiz = () => {
-        return dispatch( {
+    let resetQuiz = async () => {
+        // Reset questions first.
+        dispatch( {
             type: 'RESET_QUIZ',
+        } );
+        // Get new questions for this quiz.
+        let results = await getResults();
+        dispatch( {
+            type: 'UPDATE_QUESTIONS',
+            payload: {
+                questions: [ ...results ],
+            },
         } );
     }
 
