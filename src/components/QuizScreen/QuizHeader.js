@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { QuizContext } from '../QuizProvider/QuizProvider';
 
 export default function QuizHeader() {
-    return (
+    let { questions, currentQuestion  } = useContext( QuizContext );
+
+    let title = typeof questions[currentQuestion] !== 'undefined' ? questions[currentQuestion].category : '';
+    return title ? (
         <div className="container">
-            <h1 className="title">Entertainment: Video Games</h1>
+            <h1 className="title">{ title }</h1>
         </div>
-    );
+    ) : null;
 }
