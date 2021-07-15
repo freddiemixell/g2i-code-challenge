@@ -7,7 +7,8 @@ export const QuizContext = createContext({});
 export default function QuizProvider( { children } ) {
     let { results, getResults } = useQuizAPI();
 
-    let [currentQuestion, setCurrentQuestion] = useState(1); 
+    let [currentQuestion, setCurrentQuestion] = useState(0);
+    let [answers, setAnswers] = useState([]);
 
     useEffect( () => {
         try {
@@ -16,16 +17,29 @@ export default function QuizProvider( { children } ) {
         } catch (error) {
             console.log(error)
         }
-    }, [ results ] );
+    }, [] );
 
-    let nextQuestion = () => {
+    /**
+     * Next Question Handler
+     * @param {string} answer true or false as a string.
+     * @returns true if theres more questions.
+     */
+    let nextQuestion = ( answer ) => {
+
+        let nextAnswers = [ ...answers ]
+        nextAnswers[ currentQuestion ] = answer;
+        setAnswers( nextAnswers );
+
         setCurrentQuestion( currentQuestion + 1 );
+
+        return ( currentQuestion + 1 ) > 9 ? false : true;
     }
 
     return (
         <QuizContext.Provider
             value={ {
                 questions: results,
+                answers,
                 currentQuestion,
                 nextQuestion,
             } }
