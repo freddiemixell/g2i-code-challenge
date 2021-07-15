@@ -18,7 +18,7 @@ export default function quizReducer( state, action ) {
         case 'NEXT_QUESTION':
             return {
                 ...state,
-                currentQuestion: currentQuestion + 1,
+                currentQuestion: state.currentQuestion + 1,
             };
 
         case 'ADD_ANSWER':
@@ -28,14 +28,14 @@ export default function quizReducer( state, action ) {
             return {
                 ...state,
                 answers: [
-                    ...answers,
+                    ...state.answers,
                     action.payload.answer,
                 ],
             }
 
-        case 'UPDATE_QUESTION':
+        case 'UPDATE_QUESTIONS':
             if ( typeof action.payload === 'undefined' || typeof action.payload.questions === 'undefined' ) {
-                throw new Error( 'Questions not provided to UPDATE_QUESTION action.' );
+                throw new Error( 'Questions not provided to UPDATE_QUESTIONS action.' );
             }
             return {
                 ...state,
