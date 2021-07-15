@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useCallback } from 'react';
 import fetch from 'unfetch';
 
 const apiUrl = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
@@ -7,7 +7,7 @@ export default function useQuizAPI() {
     let [ responseCode, setResponseCode ] = useState(null);
     let [ results, setResults ] = useState([]);
 
-    let getResults = async () => {
+    let getResults = useCallback( async () => {
         try {
             let req = await fetch(apiUrl);
             let res = await req.json();
@@ -21,7 +21,7 @@ export default function useQuizAPI() {
         } catch ( error ) {
             console.log( error )
         }
-    }
+    }, [] );
 
     return {
         responseCode,
