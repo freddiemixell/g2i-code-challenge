@@ -5,6 +5,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import QuizProvider from './components/QuizProvider/QuizProvider';
+
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import QuizScreen from './components/QuizScreen/QuizScreen';
 import ResultsScreen from './components/ResultsScreen/ResultsScreen';
@@ -12,7 +14,7 @@ import ResultsScreen from './components/ResultsScreen/ResultsScreen';
 export default function App() {
   return (
     <Router>
-      <div>
+      <QuizProvider>
         <Switch>
           <Route path="/results">
             <ResultsScreen />
@@ -24,7 +26,7 @@ export default function App() {
             <HomeScreen />
           </Route>
         </Switch>
-      </div>
+      </QuizProvider>
     </Router>
   );
 }
