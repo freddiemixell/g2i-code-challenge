@@ -45,6 +45,15 @@ export default function QuizProvider( { children } ) {
         return ( state.currentQuestion + 1 ) > 9 ? false : true;
     }
 
+    /**
+     * Reset Quiz
+     */
+    let resetQuiz = () => {
+        return dispatch( {
+            type: 'RESET_QUIZ',
+        } );
+    }
+
     return (
         <QuizContext.Provider
             value={ {
@@ -52,6 +61,7 @@ export default function QuizProvider( { children } ) {
                 answers: state.answers,
                 currentQuestion: state.currentQuestion,
                 nextQuestion,
+                resetQuiz,
             } }
         >
             { children }
