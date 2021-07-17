@@ -6,26 +6,30 @@ import quizReducer, { initialState } from './QuizReducer';
 export const QuizContext = createContext({});
 
 export default function QuizProvider( { children } ) {
-    let { getResults } = useQuizAPI();
+    let { getResults, isLoading = true } = useQuizAPI();
 
     let [ state, dispatch ] = useReducer( quizReducer, initialState );
 
     useEffect( () => {
         try {
             let q = async () => {
-                let results = await getResults();
-                dispatch( {
-                    type: 'UPDATE_QUESTIONS',
-                    payload: {
-                        questions: [ ...results ],
-                    },
-                } );
+                try {
+                    let results = await getResults();
+                    dispatch( {
+                        type: 'UPDATE_QUESTIONS',
+                        payload: {
+                            questions: [ ...results ],
+                        },
+                    } );
+                } catch( error ) {
+                    console.log( error )
+                }
             };
             q();
         } catch (error) {
-            console.log(error)
+            console.log( error )
         }
-    }, [] );
+    }, [ getResults ] );
 
     /**
      * Next Question Handler
@@ -33,7 +37,7 @@ export default function QuizProvider( { children } ) {
      * @returns true if theres more questions.
      */
     let nextQuestion = ( answer ) => {
-        dispatch({
+        dispatch( {
             type: 'ADD_ANSWER',
             payload: { answer }
         } );
@@ -54,13 +58,17 @@ export default function QuizProvider( { children } ) {
             type: 'RESET_QUIZ',
         } );
         // Get new questions for this quiz.
-        let results = await getResults();
-        dispatch( {
-            type: 'UPDATE_QUESTIONS',
-            payload: {
-                questions: [ ...results ],
-            },
-        } );
+        try {
+            let results = await getResults();
+            dispatch( {
+                type: 'UPDATE_QUESTIONS',
+                payload: {
+                    questions: [ ...results ],
+                },
+            } );
+        } catch( error ) {
+            console.log( error );
+        }
     }
 
     return (
@@ -71,6 +79,7 @@ export default function QuizProvider( { children } ) {
                 currentQuestion: state.currentQuestion,
                 nextQuestion,
                 resetQuiz,
+                isLoading,
             } }
         >
             { children }
