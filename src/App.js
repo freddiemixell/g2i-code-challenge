@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 import QuizProvider from './components/QuizProvider/QuizProvider';
-
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import QuizScreen from './components/QuizScreen/QuizScreen';
 import ResultsScreen from './components/ResultsScreen/ResultsScreen';
