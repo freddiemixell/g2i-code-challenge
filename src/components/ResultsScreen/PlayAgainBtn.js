@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import { Container, Link } from '../../utils/elements';
 
 export default function PlayAgainBtn() {
     return (
-        <div className="container">
+        <Container>
             <Link
                 className="button button__playagain"
                 to="/"
             >
                 Play Again?
             </Link>
-        </div>
+        </Container>
     );
 }

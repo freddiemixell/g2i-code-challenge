@@ -1,17 +1,19 @@
 import React from 'react';
 
+import { Title, Container } from '../../utils/elements';
+
 export default function HomeHeader() {
     return (
         <>
-            <div className="container">
-                <h1 className="title">Welcome to the Trivia Challenge!</h1>
-            </div>
-            <div className="container">
+            <Container>
+                <Title>Welcome to the Trivia Challenge!</Title>
+            </Container>
+            <Container>
                 <p>You will be presented with 10 true or false questions.</p>
-            </div>
-            <div className="container">
+            </Container>
+            <Container>
                 <p>Can you score 100%?</p>
-            </div>
+            </Container>
         </>
     );
 }

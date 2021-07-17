@@ -3,24 +3,22 @@ import { useHistory } from 'react-router-dom';
 import he from 'he';
 
 import {QuizContext} from '../../components/QuizProvider/QuizProvider';
+import { Container, Button } from '../../utils/elements';
 
 export default function QuizBox() {
-    let { questions, currentQuestion, nextQuestion } = useContext( QuizContext );
+    let { questions = [{category: ''}], currentQuestion = 1, nextQuestion = () => {} } = useContext( QuizContext );
     let history = useHistory();
 
     let question = typeof questions[currentQuestion] !== 'undefined' ? he.decode( questions[ currentQuestion ].question ) : 'Loading question...'
 
     return (
         <>
-            <div className="container">
-                <div className="question">
-                    <p>{ question }</p>
-                </div>
-            </div>
-            <div className="container">
-                <div className="answer">
-                    <button
-                        className="answer__btn answer__btn-true"
+            <Container>
+                <p className="question">{ question }</p>
+            </Container>
+            <Container>
+                <div className="buttons">
+                    <Button
                         onClick={() => {
                             let checkNext = nextQuestion( 'true' )
                             if ( ! checkNext ) {
@@ -29,9 +27,8 @@ export default function QuizBox() {
                         }}
                     >
                         True
-                    </button>
-                    <button
-                        className="answer__btn answer__btn-false"
+                    </Button>
+                    <Button
                         onClick={() => {
                             let checkNext = nextQuestion( 'false' )
                             if ( ! checkNext ) {
@@ -40,9 +37,9 @@ export default function QuizBox() {
                         }}
                     >
                         False
-                    </button>
+                    </Button>
                 </div>
-            </div>
+            </Container>
         </>
     );
 }

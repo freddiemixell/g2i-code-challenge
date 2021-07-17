@@ -1,12 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {QuizContext} from '../QuizProvider/QuizProvider';
 
+import { Container, Title } from '../../utils/elements';
+
 export default function ResultsHeader() {
-    let { questions, answers } = useContext( QuizContext );
+    let history = useHistory();
+    let { questions = [], answers = [] } = useContext( QuizContext );
     let [ correctAnswers, setCorrectAnswers ] = useState( 0 );
 
     useEffect( () => {
+        if ( answers.length === 0 ) {
+            return history.push( '/' );
+        }
         let localCorrect = 0;
         questions.forEach( ( { correct_answer }, index ) => {
             if ( typeof answers[ index ] === 'undefined' ) {
@@ -18,15 +25,15 @@ export default function ResultsHeader() {
             }
         } );
         setCorrectAnswers( localCorrect );
-    }, [] );
+    }, [ answers, questions, history ] );
 
     return (
-        <div className="container">
-            <h1 className="title">
+        <Container>
+            <Title>
                 You scored
                 <br/>
                 {correctAnswers}/10
-            </h1>
-        </div>
+            </Title>
+        </Container>
     );
 }
