@@ -1,18 +1,24 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 
 import { QuizContext } from '../QuizProvider/QuizProvider';
+import { Container, Link } from '../../utils/elements';
 
 export default function BeginBtn() {
-    let { resetQuiz } = useContext( QuizContext );
+    let { resetQuiz, answers } = useContext( QuizContext );
 
     return (
-        <Link
-            className="button"
-            to="/quiz"
-            onClick={ () => resetQuiz() }
-        >
-            Begin
-        </Link>
+        <Container>
+            <Link
+                className="button"
+                to="/quiz"
+                onClick={ () => {
+                    if ( answers.length > 0 ) {
+                        resetQuiz();
+                    }
+                } }
+            >
+                Begin
+            </Link>
+        </Container>
     );
 }
